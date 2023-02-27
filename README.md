@@ -356,3 +356,172 @@ end nom de l'artchitecture ;
     				 Q=>c);
     end Comportementale;
     ```
+    # Traitement de flots de données
+    
+    ## Domaine concurrent
+    
+    C’est l’espace entre les mots clés begin et end de l’architecture 
+    
+    Pourquoi qualifie-t-on ce domaine de concurrent ?
+    
+    - Structures employées concurrentes dans le temps → Calculées en meme temps
+    - Traitements parallèles
+    
+    Conséquence
+    
+    - Ordre des structures sans importance
+        - Exemple :
+            
+            ```vhdl
+            A <= C or D ;  
+            B <= C and F;
+            ```
+            
+            et 
+            
+            ```vhdl
+            B<= C and D;
+            A<= C or D;
+            ```
+            
+            conduisent à des résultats temporels identiques 
+            
+        
+        Elément de domaine concurrent
+        
+        - Traitement de flot de données:
+            - Affectations simples
+            - Affectations conditionnelles: when … else …
+            - Affectations sélectives : with … select ….
+        - Processus utilisant une description séquentielle
+        
+        ![lo](https://user-images.githubusercontent.com/76497607/221616965-79168404-4a1d-43ad-a79a-9a975b95cda3.jpg)
+
+        
+    
+    ### Rappel : Système combinatoire
+    
+    Un système dont les sorties dépendent uniquement des entrées à un instant t donné est qualifié de combinatoire.
+    
+    Système faisant correspondre un vecteur de M sorties à un vecteur de N entrées:
+    
+    ![circuit](https://user-images.githubusercontent.com/76497607/221616997-d4099927-2590-4d75-bceb-fb487b099f65.jpg)
+
+    
+    Un tel système peut etre représenté sous la forme d’un tableau, appelé table de vérité, explicitant les sorties en fonction des différentes combinaisons d’entrée.
+    
+    ## Affectation conditionnelle : structure when .. else ..
+    
+
+### Sur l’exemple de la porte ET
+
+```vhdl
+sortie <=    '1' when entree1='1' and entree2='1'
+				else '0' when entree1='1' and entree2='0'
+				else '0' when entree1='0' and entree2='1'
+				else '0' when entree1='0' and entree2='0'
+				else '0';
+```
+
+> Note : la structure se termine toujours par un else fixant la sortie pour les combinaisons non explicitées ( rappel : les signaux entree1 et entree2 peuvent 9 valeurs chacun).
+> 
+
+### Optimisation
+
+- En regroupant les résultats communs :
+
+```vhdl
+sortie <= '1' when entree1 = '1' and entree2 = '1' else 0;
+```
+
+- En vectorisant les signaux d’entrées :
+
+```vhdl
+entity portET is 
+		port( entree1: in STD_LOGIC ;
+					entree2: in STD_LOGIC ; 
+					sortie : out STD_LOGIC);
+		end portET;
+architecture Comportementale of portET is 
+	signal entrees : std_logic_vector(1 to 2);
+begin
+	entrees <= entree1 & entree2;
+	sortie <= '1' when entrees = '11' else '0' ;
+end Comportementale ;
+```
+
+## Application sur un exemple
+
+Unité arithmétique simple 
+
+![ual](https://user-images.githubusercontent.com/76497607/221617033-a5679aa5-b70d-463a-91b4-1835990bc6a0.jpg)
+
+
+- Deux opérations possibles :
+    - Operation = ‘0’ → Resultat ← Operande1 + OperandeB
+    - Operation = ‘1’ → Resultat ← OperandeA - OperandeB
+
+### Code VHDL avec affectation conditonnelle
+
+```vhdl
+Library ieee;
+use ieee.std_logic_1164.ALL;
+use ieee.numeric_std.ALL;
+
+entity ual is 
+	port ( operandeA : in std_logic_vector(7 downto 0);
+				 operandeB : in std_logic_vector(7 downto 0);
+			   operation : in std_logic;
+				 resultat : out std_logic_vector(7 downto 0));
+end ual;
+
+architecture Comportementale of ual is 
+begin 
+	resultat <= std_logic_vector(signed(operandeA) + signed(operandeB)) when operation = '0',
+				else   std_logic_vector(signed(operandeA) - signed(operandeB)) when operation = '1', 
+				else "00000000" ;
+end Comportementale ;
+```
+
+## Affectation sélective : structure with … select …
+
+Sur l’exemple de la porte ET, après vectorisation des entrées 
+
+```vhdl
+architecture Comportementale of portET is 
+	signal entrees : std_logic_vector(1 to 2);
+begin 
+	entrees <= entree1 & entree2 ;
+	with entrees select
+				sortie <= '1' when "11",
+									'0' when others;
+end Comportementale;
+```
+
+> Note : la structure se termine toujours par une ligne … when others; fixant la sortie pour les combinaisons non explicitées.
+> 
+
+### Code source de l’UAL élemetaire ual.vhdl
+
+```vhdl
+Library ieee;
+use ieee.std_logic_1164.ALL;
+use ieee.numeric_std.ALL;
+
+entity ual is 
+	port ( operandeA : in std_logic_vector(7 downto 0);
+				 operandeB : in std_logic_vector(7 downto 0);
+			   operation : in std_logic;
+				 resultat : out std_logic_vector(7 downto 0));
+end ual;
+architecture Comportementale of ual is 
+begin
+ with operation select 
+	 	resultat <= std_logic_vector(signed(operandeA) + signed(operandeB)) when  '0',
+				else   std_logic_vector(signed(operandeA) - signed(operandeB)) when  '1' ,
+				(others => '0') when others ;
+end Comportementale ;
+```
+
+> Note : la ligne (others ⇒ ‘0’) when others; est utile pour prévoir tous les cas d’entrées possibles, en particulier pour la simulation
+>
