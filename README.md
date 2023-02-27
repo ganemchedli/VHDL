@@ -1,5 +1,3 @@
-# VHDL
-Cours de VHDL
 
 
 # VHDL
@@ -10,7 +8,8 @@ Cours de VHDL
 
 La description d’une port ET
 
-![portET.png](VHDL%209439b4c72f5946c8ac632b344733e12b/portET.png)
+![portET](https://user-images.githubusercontent.com/76497607/221600794-7bdc78f5-8613-4720-a477-962d04db154b.png)
+
 
 ```vhdl
 library IEEE;
@@ -120,13 +119,14 @@ end nom de l'artchitecture ;
         - a(3) désigne le poids fort
         - a(0) est le poids faible
     
-    ![a.jpg](VHDL%209439b4c72f5946c8ac632b344733e12b/a.jpg)
+    ![a](https://user-images.githubusercontent.com/76497607/221600940-d44f150b-cf53-4f11-9241-4a7e29edb0f2.jpg)
+
     
     - b de type STD_LOGIC_VECTOR (1 to 4)
         - b(1) est le poids fort et b(4) le poids faible
         
-        ![b.jpg](VHDL%209439b4c72f5946c8ac632b344733e12b/b.jpg)
-        
+     ![b](https://user-images.githubusercontent.com/76497607/221600961-50841894-332a-4cca-8757-3f44116483e4.jpg)
+
 
 > Note 1: le poids fort est toujours à gauche.
 > 
@@ -241,8 +241,8 @@ end nom de l'artchitecture ;
     Considérons le schéma suivant et donnons-en une description en VHDL
     
     - Version schématique
-    
-    ![1.jpg](VHDL%209439b4c72f5946c8ac632b344733e12b/1.jpg)
+    ![1](https://user-images.githubusercontent.com/76497607/221601029-32667646-36d6-4330-8574-d88452a467ce.jpg)
+
     
     - Pourquoi effectuer des descriptions structurelles en VHDL ?
         - pour écrire un fichier de tests
