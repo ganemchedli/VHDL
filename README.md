@@ -525,3 +525,149 @@ end Comportementale ;
 
 > Note : la ligne (others ⇒ ‘0’) when others; est utile pour prévoir tous les cas d’entrées possibles, en particulier pour la simulation
 >
+## Domaine séquentiel
+
+A l'intérieur du domaine concurrent, on peut effectuer des descriptions séquentielles → domaine séquentiel
+
+- Accès à des structures puissantes et lisibles, rappelant celles du C
+- Réalisation de blocs combinatoires avec une autre approche que celle du domaine concurrent mais aussi de blocs séquentiels.
+- Prise en compte aisée des phénomènes synchrones.
+- Ecriture de bancs de test.
+
+Mot clé débutant la description séquentielle : process
+
+- nom_du_process: process (liste_de_sensibilité)
+    - Liste de sensibilité = liste des signaux dont le changement d'état lance le calcul du process.
+    - La liste de sensibilité peut être vide→ on ôte les parenthèses. Dans ce cas, le process est exécuté sans condition.
+    - Le nommage du process est facultatif.
+
+### Structure d’un process
+
+```vhdl
+nom_du_process:
+process(liste_de_sensibilité)
+begin
+- Déclaration des variables internes au process
+- Déclaration des contantes
+-- Description séquentielle <=> Prise en compte des lignes de code les unes à la suite des autres.
+end process nom_du_process;
+```
+
+### Signal et Variable
+
+Signal
+
+- Déclaration avant le begin de l'architecture
+
+```vhdl
+architecture nom_de_1_architecture of nom_de_1_entite is signal 
+	nom_signal: type_signal := valeur_initiale; 
+begin
+```
+
+- Existe physiquement dans le composant sauf simplification par un processus d'optimisation.
+- Affectation dans un process
+    - Opérateur ≤
+    - Effective seulement au moment de la sortie du process ⇒ utilisé dans un process comme entrée dans une équation, le signal a toujours pour valeur celle qu’il avait en entrant dans le process !
+
+Variable
+
+- Déclaration avant le begin de du process
+
+```vhdl
+process(liste_de_sensibilite)
+variable nom_variable: type_variable := valeur_initiale;
+begin
+```
+
+N'existe qu'à l'intérieur d'un process et disparait au moment de la sortie du process
+
+=> la variable n'a pas de sens physique.
+
+=> artifice utile dans le processus de description séquentielle aboutissant à un jeu d'équations après synthèse.
+
+- Affectation dans un process
+    - opérateur :=
+    - Effective immédiatemment .
+
+## Structures de programmation dans le process
+
+Affectation simple 
+
+- Comme dans le domaine concurrent en utilisant l’opérateur d’affectation ≤ pour les signaux
+- Avec l’opérateur := pour affecter les variables
+
+Affectation conditionnelle - Affectation sélective
+
+- Possibles pour les signaux dans un process comme dans le domaine concurrent si les fichiers VHDL sont à la norme VHDL-2008 (ce qui n’est pas le cas par défault).
+
+Structures conditionnelles 
+
+- Structure
+
+```vhdl
+if .... then .... else ..... end if; (else facultatif)
+```
+
+- sur une seule ligne :
+
+```vhdl
+if condition then action_du_then ; end if;
+if condition then action_du_then; else action_du_else; end if;
+```
+
+- sur plusieurs ligne
+
+```vhdl
+if condition then
+		--action du then 
+end if ;
+if condtion then 
+		--action du then 
+else
+		--action du else 
+end if ; 
+```
+
+- Structure
+
+```vhdl
+if condition then 
+		--action du then 
+elsif condition_e then
+		--action du elsif then 
+else 
+  --action du elsif else
+end if;
+```
+
+- Structure case … :
+
+```vhdl
+case signal_variable is
+	when val      => action_1;
+	when vald to valf => action_2;
+	when val1|val2|valn => action_3 ;
+	when others      => action_others;
+end case;
+
+--ou version développée
+case signal_variable is 
+		when val    =>
+						--action du cas signal_variable = val 
+		when vald to valf  =>
+						--actions du cas signal_variable compris entre vald to valf
+		when others 
+						--actions pour tous les autres cas 
+end case ;
+```
+
+Structures répétitives 
+
+- Boucle for … loop
+
+```vhdl
+for index in valeur_debut to valeur_fin loop
+		--actions de la boucle for...loop
+end loop;
+```
