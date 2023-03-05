@@ -17,8 +17,8 @@ use IEEE.STD_LOGIC_1164.ALL;
 
 entity portET is 
 		port( entree1: in STD_LOGIC ;
-					entree2: in STD_LOGIC ; 
-					sortie : out STD_LOGIC);
+		      entree2: in STD_LOGIC ; 
+		      sortie : out STD_LOGIC);
 		end portET;
 architecture Comportementale of portET is 
 begin 
