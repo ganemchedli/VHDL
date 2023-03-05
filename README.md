@@ -193,7 +193,7 @@ end nom de l'artchitecture ;
     ```vhdl
     architecture Comportementale of decodeur7segments is 
     	signal afficheur7segments : STD_LOGIC_VECTOR(1 to 7);
-    	constant CHIFFRE_1 : STD_LOFIC_VECTOR(1 to 7) :="0110000" ;
+    	constant CHIFFRE_1 : STD_LOGIC_VECTOR(1 to 7) :="0110000" ;
     	constant CHIFFRE_2 : STD_LOGIC_VECTOR(1 to 7) :="1101101";
     	constant CHIFFRE_3 : STD_LOGIC_VECTOR(1 to 7) :="1111001"
     begin
