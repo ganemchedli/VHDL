@@ -257,7 +257,7 @@ end nom de l'artchitecture ;
     use UNISIM.Vcomponents.ALL;
     ```
     
-    1. Etape 2 : Descritption externe du composant réé nommé monComposant : 
+    1. Etape 2 : Descritption externe du composant créé nommé monComposant : 
     
     ```vhdl
     entity monComposant is 
