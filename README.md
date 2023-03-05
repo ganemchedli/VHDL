@@ -77,7 +77,7 @@ end nom de l'artchitecture ;
     - Toute grandeur qui peut exister après le processus de synthèse et qui peut donc être visualisée sur un oscilloscope si on en interdit la simplification.
     - Signal = Grandeur physique.
 - Les entrées, sorties et entrées-sorties de l'entité sont des signaux externes.
-- Déclaration de signaux internes à l'architecture*
+- Déclaration de signaux internes à l'architecture
     - Entre les mots clés architecture et begin avec la syntaxe :
     
     ```vhdl
