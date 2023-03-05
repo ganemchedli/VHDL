@@ -261,12 +261,8 @@ end nom de l'artchitecture ;
     
     ```vhdl
     entity monComposant is 
-    	port (a : in std_logic ;
-    				b : in std_logic ;
-    				clear : in std_logic ;
-    				clk : in std_logic ;
-    				clkn : in std_logic ;
-    				c : in std_logic );
+    	port (a : in std_logic ; b : in std_logic ; clear : in std_logic ;
+    		clk : in std_logic ; clkn : in std_logic ; c : in std_logic );
     end monComposant;
     ```
     
@@ -283,16 +279,16 @@ end nom de l'artchitecture ;
         ```vhdl
         component AND2 
         	port (I0 : in std_logic ;
-        				I1 : in std_logic ;
-        				O : out std_logic );
+        	      I1 : in std_logic ;
+        	      O : out std_logic );
         end component;
         component FDCE 
         	generic( INIT : bit := '0');
         	port (C : in std_logic;
-        				CE : in std_logic;
-        				CLR : in std_logic;
-        				D : in std_logic;
-        				Q : out std_logic);
+        	      CE : in std_logic;
+        	      CLR : in std_logic;
+        	      D : in std_logic;
+        	      Q : out std_logic);
         end component ;
         ```
         
@@ -301,14 +297,14 @@ end nom de l'artchitecture ;
         ```vhdl
         XLX_1 : AND2
         	port map(I0 => b,
-        					 I1 =>a,
-        					 O => D_interne);
+        		 I1 =>a,
+        		 O => D_interne);
         XLXI_2 : FDCE
         port map(c=>clk,
-        				 CE=>clkEn,
-        				 CLR=>clear,
-        				 D=>D_interne,
-        				 Q=>c);
+        	 CE=>clkEn,
+        	 CLR=>clear,
+        	 D=>D_interne,
+        	 Q=>c);
         ```
         
     
@@ -322,38 +318,38 @@ end nom de l'artchitecture ;
     use UNISIM.Vcomponents.ALL;
     entity monComposant is 
     	port (a : in std_logic ;
-    				b : in std_logic ;
-    				clear : in std_logic ;
-    				clk : in std_logic ;
-    				clkn : in std_logic ;
-    				c : in std_logic );
+    	      b : in std_logic ;
+    	      clear : in std_logic ;
+    	      clk : in std_logic ;
+    	      clkn : in std_logic ;
+    	      c : in std_logic );
     end monComposant;
     architecture Comportementale of monComposant is 
     	signal D_interne : std_logic;
     component AND2 
     	port (I0 : in std_logic ;
-    				I1 : in std_logic ;
-    				O : out std_logic );
+    	      I1 : in std_logic ;
+    	      O : out std_logic );
     end component;
     component FDCE 
     	generic( INIT : bit := '0');
     	port (C : in std_logic;
-    				CE : in std_logic;
-    				CLR : in std_logic;
-    				D : in std_logic;
-    				Q : out std_logic);
+    	      CE : in std_logic;
+    	      CLR : in std_logic;
+    	      D : in std_logic;
+    	      Q : out std_logic);
     end component ;
     begin
     XLX_1 : AND2
     	port map(I0 => b,
-    					 I1 =>a,
-    					 O => D_interne);
+    		 I1 =>a,
+    		 O => D_interne);
     XLXI_2 : FDCE
     port map(c=>clk,
-    				 CE=>clkEn,
-    				 CLR=>clear,
-    				 D=>D_interne,
-    				 Q=>c);
+    	     CE=>clkEn,
+    	     CLR=>clear,
+    	     D=>D_interne,
+    	     Q=>c);
     end Comportementale;
     ```
     # Traitement de flots de données
@@ -416,11 +412,11 @@ end nom de l'artchitecture ;
 ### Sur l’exemple de la porte ET
 
 ```vhdl
-sortie <=    '1' when entree1='1' and entree2='1'
-				else '0' when entree1='1' and entree2='0'
-				else '0' when entree1='0' and entree2='1'
-				else '0' when entree1='0' and entree2='0'
-				else '0';
+sortie <= '1' when entree1='1' and entree2='1'
+	      else '0' when entree1='1' and entree2='0'
+	      else '0' when entree1='0' and entree2='1'
+	      else '0' when entree1='0' and entree2='0'
+	      else '0';
 ```
 
 > Note : la structure se termine toujours par un else fixant la sortie pour les combinaisons non explicitées ( rappel : les signaux entree1 et entree2 peuvent 9 valeurs chacun).
@@ -439,8 +435,8 @@ sortie <= '1' when entree1 = '1' and entree2 = '1' else 0;
 ```vhdl
 entity portET is 
 		port( entree1: in STD_LOGIC ;
-					entree2: in STD_LOGIC ; 
-					sortie : out STD_LOGIC);
+		      entree2: in STD_LOGIC ; 
+		      sortie : out STD_LOGIC);
 		end portET;
 architecture Comportementale of portET is 
 	signal entrees : std_logic_vector(1 to 2);
@@ -470,9 +466,9 @@ use ieee.numeric_std.ALL;
 
 entity ual is 
 	port ( operandeA : in std_logic_vector(7 downto 0);
-				 operandeB : in std_logic_vector(7 downto 0);
-			   operation : in std_logic;
-				 resultat : out std_logic_vector(7 downto 0));
+	 operandeB : in std_logic_vector(7 downto 0);
+	 operation : in std_logic;
+         resultat : out std_logic_vector(7 downto 0));
 end ual;
 
 architecture Comportementale of ual is 
@@ -493,8 +489,8 @@ architecture Comportementale of portET is
 begin 
 	entrees <= entree1 & entree2 ;
 	with entrees select
-				sortie <= '1' when "11",
-									'0' when others;
+		sortie <= '1' when "11",
+	        '0' when others;
 end Comportementale;
 ```
 
@@ -510,9 +506,9 @@ use ieee.numeric_std.ALL;
 
 entity ual is 
 	port ( operandeA : in std_logic_vector(7 downto 0);
-				 operandeB : in std_logic_vector(7 downto 0);
-			   operation : in std_logic;
-				 resultat : out std_logic_vector(7 downto 0));
+	       operandeB : in std_logic_vector(7 downto 0);
+	       operation : in std_logic;
+	       resultat : out std_logic_vector(7 downto 0));
 end ual;
 architecture Comportementale of ual is 
 begin
@@ -653,12 +649,9 @@ end case;
 
 --ou version développée
 case signal_variable is 
-		when val    =>
-						--action du cas signal_variable = val 
-		when vald to valf  =>
-						--actions du cas signal_variable compris entre vald to valf
-		when others 
-						--actions pour tous les autres cas 
+		when val  => --action du cas signal_variable = val 
+		when vald to valf  => --actions du cas signal_variable compris entre vald to valf
+		when others --actions pour tous les autres cas 
 end case ;
 ```
 
@@ -668,6 +661,6 @@ Structures répétitives
 
 ```vhdl
 for index in valeur_debut to valeur_fin loop
-		--actions de la boucle for...loop
+--actions de la boucle for...loop
 end loop;
 ```
