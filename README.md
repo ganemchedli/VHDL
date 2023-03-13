@@ -54,7 +54,7 @@ Ports : signaux caractérisés par un mode et un type
         - Structures de traitements de flots de données
         - Processus séquentiels
     - Structurelle hiérarchique
-        - Instanciation de blocs décrits en VHDL et descriptio, de leurs interconnexions
+        - Instanciation de blocs décrits en VHDL et description de leurs interconnexions
 - Description interne de bas niveau (structurelle) à la portabilité limitée
     - Description structurelle reposant sur l’instanciation de primitives du composant ciblé
 - Syntaxe (description comportementale seulement)
