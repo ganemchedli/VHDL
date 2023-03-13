@@ -229,7 +229,7 @@ end nom de l'artchitecture ;
     begin
     	c <= not(not(E3) and not(E2) and E1 and not(E0)); --équation logique en utilisant les opérateurs logiques
     	entrees <= E3 & E2 & E1 & E0; --équation écrite en utilisant l'opérateur de concaténation & 
-    	A <= afficheur7Segments(1); --extractoon d'un bit dans un vecteur 
+    	A <= afficheur7Segments(1); --extraction d'un bit dans un vecteur 
     	G <= afficheur7Segments(7);
     	instruction <= opCode(15 downto 11); -- extraction d'un vecteur dans un vecteur 
       P<= X*Y; --Calcul des entiers
