@@ -440,7 +440,7 @@ entity portET is
 		port( entree1: in STD_LOGIC ;
 		      entree2: in STD_LOGIC ; 
 		      sortie : out STD_LOGIC);
-		end portET;
+end portET;
 architecture Comportementale of portET is 
 	signal entrees : std_logic_vector(1 to 2);
 begin
