@@ -241,6 +241,9 @@ end nom de l'artchitecture ;
     Considérons le schéma suivant et donnons-en une description en VHDL
     
     - Version schématique
+    
+    
+    
     ![1](https://user-images.githubusercontent.com/76497607/221601029-32667646-36d6-4330-8574-d88452a467ce.jpg)
 
     
