@@ -571,7 +571,7 @@ begin
 
 Variable
 
-- Déclaration avant le begin de du process
+- Déclaration avant le begin du process
 
 ```vhdl
 process(liste_de_sensibilite)
